@@ -4,6 +4,7 @@ canvas.height = 500;
 
 let circlesX = [];
 let circlesY = [];
+let RADIUS = 10;
 
 function getPosition(event) {
     var posX = 0;
@@ -31,12 +32,12 @@ function getPosition(event) {
 function drawCircle(x, y) {
     var circle = canvas.getContext("2d");
     circle.beginPath();
-    circle.arc(x, y, 10, 0, 2 * Math.PI);
+    circle.arc(x, y, RADIUS, 0, 2 * Math.PI);
     circle.fill();
 }
 
 function circlesDistance(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - 10 * 2;
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - RADIUS * 2;
 }
 
 function isNoCirclesNearby(x, y) {
@@ -48,10 +49,20 @@ function isNoCirclesNearby(x, y) {
     return true;
 }
 
+function isWithinCanvas(x, y) {
+    if (x - canvas.offsetLeft >= RADIUS && canvas.offsetLeft + canvas.offsetWidth - x >= RADIUS &&
+        y - canvas.offsetTop >= RADIUS && canvas.offsetTop + canvas.offsetHeight - y >= RADIUS) {
+        return true;
+    }
+    return false;
+}
+
 function draw(event) {
-    var x = getPosition(event).x - canvas.offsetLeft;
-    var y = getPosition(event).y - canvas.offsetTop;
-    if (isNoCirclesNearby(x, y)) {
+    var absoluteX = getPosition(event).x;
+    var absoluteY = getPosition(event).y;
+    var x = absoluteX - canvas.offsetLeft;
+    var y = absoluteY - canvas.offsetTop;
+    if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
         drawCircle(x, y);
         circlesX.push(x);
         circlesY.push(y);
