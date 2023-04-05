@@ -3,9 +3,9 @@ var canvas = document.getElementById("fieldCanvas");
 canvas.width = 500;
 canvas.height = 500;
 
-let circlesX = [];
-let circlesY = [];
-let RADIUS = 10;
+var circlesX = [];
+var circlesY = [];
+var RADIUS = 10;
 
 var deleteModeOn = false;
 
@@ -108,7 +108,7 @@ function drawOrErase(event) {
     else {
         var i = findSelectedCircle(x, y);
         if (i >= 0) {
-            for (j = 0; j < 5; j++) {
+            for (let j = 0; j < 5; j++) {
                 drawCircle(circlesX[i], circlesY[i], "white");
             }
             circlesX.splice(i, 1);
