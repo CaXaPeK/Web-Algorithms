@@ -20,8 +20,7 @@ document.querySelector('#modeSelector').onclick = function() {
 document.querySelector('#clearCanvas').onclick = function() {
     var clearing = canvas.getContext("2d");
     clearing.clearRect(0, 0, canvas.width, canvas.height);
-    circlesX = [];
-    circlesY = [];
+    circles = [];
 }
 
 function getPosition(event) {
@@ -47,25 +46,25 @@ function getPosition(event) {
     }
 }
 
-function drawCircle(x, y, color) {
-    var circle = canvas.getContext("2d");
-    circle.beginPath();
-    circle.arc(x, y, RADIUS, 0, 2 * Math.PI);
-    circle.fillStyle = color;
-    circle.fill();
+function drawCircle(circle, color) {
+    var circleDraw = canvas.getContext("2d");
+    circleDraw.beginPath();
+    circleDraw.arc(circle.x, circle.y, RADIUS, 0, 2 * Math.PI);
+    circleDraw.fillStyle = color;
+    circleDraw.fill();
 }
 
-function circlesDistance(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - RADIUS * 2;
+function circlesDistance(circle1, circle2) {
+    return Math.sqrt(Math.pow(circle2.x - circle1.x, 2) + Math.pow(circle2.y - circle1.y, 2)) - RADIUS * 2;
 }
 
-function distanceToCircle(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - RADIUS;
+function distanceToCircle(x, y, circle) {
+    return Math.sqrt(Math.pow(circle.x - x, 2) + Math.pow(circle.y - y, 2)) - RADIUS;
 }
 
-function isNoCirclesNearby(x, y) {
-    for (let i = 0; i < circlesX.length; i++) {
-        if (circlesDistance(x, y, circlesX[i], circlesY[i]) < 0) {
+function isNoCirclesNearby(circle) {
+    for (let i = 0; i < circles.length; i++) {
+        if (circlesDistance(circle, circles[i]) < 0) {
             return false;
         }
     }
@@ -73,17 +72,17 @@ function isNoCirclesNearby(x, y) {
 }
 
 function findSelectedCircle(x, y) {
-    for (let i = 0; i < circlesX.length; i++) {
-        if (distanceToCircle(x, y, circlesX[i], circlesY[i]) < 0) {
+    for (let i = 0; i < circles.length; i++) {
+        if (distanceToCircle(x, y, circles[i]) < 0) {
             return i;
         }
     }
     return -1;
 }
 
-function isWithinCanvas(x, y) {
-    if (x >= RADIUS && canvas.offsetWidth - x >= RADIUS &&
-        y >= RADIUS && canvas.offsetHeight - y >= RADIUS) {
+function isWithinCanvas(circle) {
+    if (circle.x >= RADIUS && canvas.offsetWidth - circle.x >= RADIUS &&
+        circle.y >= RADIUS && canvas.offsetHeight - circle.y >= RADIUS) {
         return true;
     }
     return false;
@@ -96,20 +95,18 @@ function drawOrErase(event) {
     var y = absoluteY - canvas.offsetTop;
 
     if (!deleteModeOn) {
-        if (isNoCirclesNearby(x, y) && isWithinCanvas(x, y)) {
-            drawCircle(x, y, "black");
-            circlesX.push(x);
-            circlesY.push(y);
+        if (isNoCirclesNearby(new Circle(x, y)) && isWithinCanvas(new Circle(x, y))) {
+            drawCircle(new Circle(x, y), "black");
+            circles.push(new Circle(x, y));
         }
     }
     else {
         var i = findSelectedCircle(x, y);
         if (i >= 0) {
             for (let j = 0; j < 5; j++) {
-                drawCircle(circlesX[i], circlesY[i], "white");
+                drawCircle(circles[i], "white");
             }
-            circlesX.splice(i, 1);
-            circlesY.splice(i, 1);
+            circles.splice(i, 1);
         }
     }
 }

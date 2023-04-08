@@ -1,5 +1,11 @@
-var circlesX = [];
-var circlesY = [];
+class Circle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+var circles = [];
 var centroidsX = [];
 var centroidsY = [];
 var clusterColors = [];
@@ -59,15 +65,13 @@ function assignClusterColors() {
 }
 
 function randomColor() {
-    return colors[Math.floor(Math.random() * colors.length - 1)];
+    return colors[Math.floor(Math.random() * (colors.length - 1))];
 }
 
 function generateStartCentroids() {
     for (let i = 0; i < clusterCount; i++) {
         centroidsX.push(Math.floor(Math.random() * canvas.width));
         centroidsY.push(Math.floor(Math.random() * canvas.height));
-        ///drawCircle(centroidsX[i], centroidsY[i], colors[Math.floor(Math.random() * 29)]);
-        
     }
 }
 
@@ -81,6 +85,11 @@ function adjustCentroids() {
 }
 
 document.querySelector('#algorithmStart').onclick = function() {
+    if (circles.length < clusterCount) {
+        alert("Слишком мало точек для такого количества кластеров!");
+        return;
+    }
+
     centroidsX = [];
     centroidsY = [];
     clusterCount = parseInt(document.getElementById('clusterCount').value);
