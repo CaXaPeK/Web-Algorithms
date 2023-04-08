@@ -1,10 +1,7 @@
 var canvas = document.getElementById("fieldCanvas");
-
 canvas.width = 500;
 canvas.height = 500;
 
-var circlesX = [];
-var circlesY = [];
 var RADIUS = 10;
 
 var deleteModeOn = false;
@@ -85,8 +82,8 @@ function findSelectedCircle(x, y) {
 }
 
 function isWithinCanvas(x, y) {
-    if (x - canvas.offsetLeft >= RADIUS && canvas.offsetLeft + canvas.offsetWidth - x >= RADIUS &&
-        y - canvas.offsetTop >= RADIUS && canvas.offsetTop + canvas.offsetHeight - y >= RADIUS) {
+    if (x >= RADIUS && canvas.offsetWidth - x >= RADIUS &&
+        y >= RADIUS && canvas.offsetHeight - y >= RADIUS) {
         return true;
     }
     return false;
@@ -99,7 +96,7 @@ function drawOrErase(event) {
     var y = absoluteY - canvas.offsetTop;
 
     if (!deleteModeOn) {
-        if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
+        if (isNoCirclesNearby(x, y) && isWithinCanvas(x, y)) {
             drawCircle(x, y, "black");
             circlesX.push(x);
             circlesY.push(y);
