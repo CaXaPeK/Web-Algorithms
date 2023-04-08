@@ -66,7 +66,7 @@ function generateStartCentroids() {
     for (let i = 0; i < clusterCount; i++) {
         centroidsX.push(Math.floor(Math.random() * canvas.width));
         centroidsY.push(Math.floor(Math.random() * canvas.height));
-        //drawCircle(centroidsX[i], centroidsY[i], colors[Math.floor(Math.random() * 29)]);
+        ///drawCircle(centroidsX[i], centroidsY[i], colors[Math.floor(Math.random() * 29)]);
         
     }
 }
