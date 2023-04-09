@@ -111,10 +111,11 @@ function drawOrErase(event) {
     else {
         var i = findSelectedCircle(x, y);
         if (i >= 0) {
-            for (let j = 0; j < 5; j++) {
-                drawCircle(circles[i], "white");
-            }
             circles.splice(i, 1);
+            clearCanvas();
+            for (circle of circles) {
+                drawCircle(circle, "black");
+            }
         }
     }
 }
