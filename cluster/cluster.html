@@ -19,21 +19,44 @@
             <button id="algorithmStart">▶️ Запустить алгоритм</button>
         </div>
         <p>
-            <b>Общие настройки:</b>
+            <b>Метод кластеризации:</b>
+            <select name="clusteringMethod" id="clusteringMethod">
+                <option value="kmeans">k-средних</option>
+                <option value="dbscan">DBSCAN</option>
+            </select>
+        </p>
+        <p>
+            <b>--Общие настройки--</b>
             <div>
-                Кластеров:
-                <input id="clusterCount" type="number" name="clusters" size="2" min="1" max="30" value="3">
-            </div>
-            <div>
-                Метрика:
-                <select name="metrics" id="metrics">
+                📏 Метрика:
+                <select name="metricsSelector" id="metricsSelector">
                     <option value="euclidian">Евклидова</option>
                     <option value="manhattan">Манхэттенская</option>
                     <option value="chebyshev">Чебышёва</option>
                 </select>
             </div>
-            
         </p>
+        <p>
+            <b>--Настройки k-средних--</b>
+            <div>
+                🌑 Кластеров:
+                <input id="clusterCount" type="number" name="clusters" size="2" min="1" max="30" value="3">
+            </div>
+        </p>
+        <p>
+            <b>--Настройки DBSCAN--</b>
+            <div>
+                ⭕ ε-окрестность:
+                <input type="range" id="epsilon" name="epsilon" min="0" max="100" value="50">
+                <output id="epsilonValue">50</output>
+            </div>
+            <div>
+                ➖ Мин. кол-во точек кластера:
+                <input type="range" id="minPts" name="minPts" min="0" max="100" value="10">
+                <output id="minPtsValue">10</output>
+            </div>
+        </p>
+        
     </body>
 
     <script src="scripts/drawingSystem.js"></script>

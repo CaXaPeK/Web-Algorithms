@@ -29,6 +29,9 @@ let centroids = [];
 let clusterColors = [];
 let clusterCount;
 let metricsType;
+let clusteringMethod;
+let epsilon;
+let minPts;
 
 let colors = [
     "aqua",
@@ -60,7 +63,8 @@ let colors = [
     "slategray",
     "tomato",
     "yellow",
-    "yellowgreen"
+    "yellowgreen",
+    "red"
 ];
 
 function distance(x1, y1, x2, y2) {
@@ -156,14 +160,22 @@ function adjustCentroids() {
     }
 }
 
-document.querySelector('#algorithmStart').onclick = function() {
+function startKMeans() {
     clusterCount = parseInt(document.getElementById('clusterCount').value);
+    if (clusterCount > 30) {
+        clusterCount = 30;
+        document.getElementById('clusterCount').value = '30';
+    }
+    if (clusterCount < 1) {
+        clusterCount = 1;
+        document.getElementById('clusterCount').value = '1';
+    }
     if (circles.length < clusterCount) {
         alert("Слишком мало точек для такого количества кластеров!");
         return;
     }
 
-    metricsType = document.getElementById('metrics').value;
+    metricsType = document.getElementById('metricsSelector').value;
     centroids = [];
     
     generateStartCentroids();
@@ -171,3 +183,36 @@ document.querySelector('#algorithmStart').onclick = function() {
     adjustCentroids();
     drawClusteredCircles();
 }
+
+function startDBSCAN() {
+
+}
+
+document.querySelector('#algorithmStart').onclick = function() {
+    clusteringMethod = document.getElementById('clusteringMethod').value;
+
+    switch (clusteringMethod) {
+        case "kmeans":
+            startKMeans();
+            break;
+        case "dbscan":
+            startDBSCAN();
+            break;
+        default:
+            break;
+    }
+}
+
+document.querySelector('#epsilon').addEventListener("input", (event) => {
+    let input = document.querySelector('#epsilon');
+    let value = document.querySelector('#epsilonValue');
+    value.textContent = event.target.value;
+    epsilon = event.target.value;
+})
+
+document.querySelector('#minPts').addEventListener("input", (event) => {
+    let input = document.querySelector('#minPts');
+    let value = document.querySelector('#minPtsValue');
+    value.textContent = event.target.value;
+    minPts = event.target.value;
+})
