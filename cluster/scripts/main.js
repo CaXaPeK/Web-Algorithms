@@ -126,14 +126,13 @@ function adjustCentroids() {
 }
 
 document.querySelector('#algorithmStart').onclick = function() {
+    clusterCount = parseInt(document.getElementById('clusterCount').value);
     if (circles.length < clusterCount) {
         alert("Слишком мало точек для такого количества кластеров!");
         return;
     }
-
     centroids = [];
-    clusterCount = parseInt(document.getElementById('clusterCount').value);
-
+    
     generateStartCentroids();
     assignClusterColors();
     adjustCentroids();

@@ -104,8 +104,11 @@ function drawOrErase(event) {
 
     if (!deleteModeOn) {
         if (isNoCirclesNearby(new Circle(x, y)) && isWithinCanvas(new Circle(x, y))) {
-            drawCircle(new Circle(x, y), "black");
             circles.push(new Circle(x, y));
+            clearCanvas();
+            for (circle of circles) {
+                drawCircle(circle, "black");
+            }
         }
     }
     else {
