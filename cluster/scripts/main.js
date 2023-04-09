@@ -28,6 +28,7 @@ let centroids = [];
 
 let clusterColors = [];
 let clusterCount;
+let metricsType;
 
 let colors = [
     "aqua",
@@ -61,6 +62,19 @@ let colors = [
     "yellow",
     "yellowgreen"
 ];
+
+function distance(x1, y1, x2, y2) {
+    switch (metricsType) {
+        case "euclidian":
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        case "manhattan":
+            return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+        case "chebyshev":
+            return Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+        default:
+            return -1;
+    }
+}
 
 function assignClusterColors() {
     clusterColors = [];
@@ -148,6 +162,8 @@ document.querySelector('#algorithmStart').onclick = function() {
         alert("Слишком мало точек для такого количества кластеров!");
         return;
     }
+
+    metricsType = document.getElementById('metrics').value;
     centroids = [];
     
     generateStartCentroids();

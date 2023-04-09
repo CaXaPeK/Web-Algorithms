@@ -68,10 +68,6 @@ function distanceToCircle(x, y, circle) {
     return Math.sqrt(Math.pow(circle.x - x, 2) + Math.pow(circle.y - y, 2)) - RADIUS;
 }
 
-function distance(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
-
 function findSelectedCircle(x, y) {
     for (let i = 0; i < circles.length; i++) {
         if (distanceToCircle(x, y, circles[i]) < 0) {
