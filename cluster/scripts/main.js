@@ -4,15 +4,32 @@ class Circle {
         this.y = y;
         this.cluster = -1;
     }
+
+    isNoCirclesNearby() {
+        for (circle of circles) {
+            if (circlesDistance(this, circle) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    isWithinCanvas() {
+        if (this.x >= RADIUS && canvas.offsetWidth - this.x >= RADIUS &&
+            this.y >= RADIUS && canvas.offsetHeight - this.y >= RADIUS) {
+            return true;
+        }
+        return false;
+    }
 }
 
-var circles = [];
-var centroids = [];
+let circles = [];
+let centroids = [];
 
-var clusterColors = [];
-var clusterCount;
+let clusterColors = [];
+let clusterCount;
 
-var colors = [
+let colors = [
     "aqua",
     "aquamarine",
     "black",

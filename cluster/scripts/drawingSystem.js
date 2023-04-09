@@ -1,10 +1,10 @@
-var canvas = document.getElementById("fieldCanvas");
+let canvas = document.getElementById("fieldCanvas");
 canvas.width = 500;
 canvas.height = 500;
 
-var RADIUS = 10;
+let RADIUS = 10;
 
-var deleteModeOn = false;
+let deleteModeOn = false;
 
 document.querySelector('#modeSelector').onclick = function() {
     if (deleteModeOn) {
@@ -28,10 +28,12 @@ document.querySelector('#clearCanvas').onclick = function() {
 }
 
 function getPosition(event) {
-    var posX = 0;
-    var posY = 0;
+    let posX = 0;
+    let posY = 0;
 
-    if (!event) var event = window.event;
+    if (!event) {
+        let event = window.event;
+    }
 
     if (event.pageX || event.pageY) {
         posX = event.pageX;
@@ -70,15 +72,6 @@ function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
-function isNoCirclesNearby(circle) {
-    for (iterCircle of circles) {
-        if (circlesDistance(circle, iterCircle) < 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function findSelectedCircle(x, y) {
     for (let i = 0; i < circles.length; i++) {
         if (distanceToCircle(x, y, circles[i]) < 0) {
@@ -88,22 +81,14 @@ function findSelectedCircle(x, y) {
     return -1;
 }
 
-function isWithinCanvas(circle) {
-    if (circle.x >= RADIUS && canvas.offsetWidth - circle.x >= RADIUS &&
-        circle.y >= RADIUS && canvas.offsetHeight - circle.y >= RADIUS) {
-        return true;
-    }
-    return false;
-}
-
 function drawOrErase(event) {
-    var absoluteX = getPosition(event).x;
-    var absoluteY = getPosition(event).y;
-    var x = absoluteX - canvas.offsetLeft;
-    var y = absoluteY - canvas.offsetTop;
+    let absoluteX = getPosition(event).x;
+    let absoluteY = getPosition(event).y;
+    let x = absoluteX - canvas.offsetLeft;
+    let y = absoluteY - canvas.offsetTop;
 
     if (!deleteModeOn) {
-        if (isNoCirclesNearby(new Circle(x, y)) && isWithinCanvas(new Circle(x, y))) {
+        if (new Circle(x, y).isNoCirclesNearby() && new Circle(x, y).isWithinCanvas()) {
             circles.push(new Circle(x, y));
             clearCanvas();
             for (circle of circles) {
@@ -112,7 +97,7 @@ function drawOrErase(event) {
         }
     }
     else {
-        var i = findSelectedCircle(x, y);
+        let i = findSelectedCircle(x, y);
         if (i >= 0) {
             circles.splice(i, 1);
             clearCanvas();
