@@ -2,12 +2,13 @@ class Circle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.cluster = -1;
     }
 }
 
 var circles = [];
-var centroidsX = [];
-var centroidsY = [];
+var centroids = [];
+
 var clusterColors = [];
 var clusterCount;
 
@@ -68,19 +69,59 @@ function randomColor() {
     return colors[Math.floor(Math.random() * (colors.length - 1))];
 }
 
+//Выбор k точек без повторений
 function generateStartCentroids() {
+    let circleIds = [];
+    for (let i = 0; i < circles.length; i++) {
+        circleIds.push(i);
+    }
+
     for (let i = 0; i < clusterCount; i++) {
-        centroidsX.push(Math.floor(Math.random() * canvas.width));
-        centroidsY.push(Math.floor(Math.random() * canvas.height));
+        let randomId = Math.floor(Math.random() * (circleIds.length - 1));
+        centroids.push(circles[circleIds[randomId]]);
+        circleIds.splice(randomId, 1);
     }
 }
 
+function closestCentroid(circle) {
+    let closestCentroidId = -1;
+    let minDistance = Infinity;
+    for (let i = 0; i < centroids.length; i++) {
+        let distanceToCentroid = distance(circle.x, circle.y, centroids[i].x, centroids[i].y);
+        if (distanceToCentroid < minDistance) {
+            minDistance = distanceToCentroid;
+            closestCentroidId = i;
+        }
+    }
+    return closestCentroidId;
+}
+
+function newCentroid(clusterId) {
+    let xSum = 0;
+    let ySum = 0;
+    let circleCount = 0;
+    for (circle of circles) {
+        if (circle.cluster === clusterId) {
+            xSum += circle.x;
+            ySum += circle.y;
+            circleCount++;
+        }
+    }
+
+    return new Circle(Math.floor(xSum / circleCount), Math.floor(ySum / circleCount));
+}
+
 function adjustCentroids() {
-    let oldCentroidsX = [];
-    let oldCentroidsY = [];
-    while (oldCentroidsX.toString() !== centroidsX.toString() ||
-           oldCentroidsY.toString() !== centroidsY.toString()) {
-        
+    let oldCentroids = [];
+    while (oldCentroids.toString() !== centroids.toString()) {
+        oldCentroids = centroids;
+        for (circle of circles) {
+            circle.cluster = closestCentroid(circle);
+        }
+
+        for (let i = 0; i < centroids.length; i++) {
+            centroids[i] = newCentroid(i);
+        }
     }
 }
 
@@ -90,11 +131,11 @@ document.querySelector('#algorithmStart').onclick = function() {
         return;
     }
 
-    centroidsX = [];
-    centroidsY = [];
+    centroids = [];
     clusterCount = parseInt(document.getElementById('clusterCount').value);
+
     generateStartCentroids();
     assignClusterColors();
-    console.log(clusterColors);
-    //adjustCentroids();
+    adjustCentroids();
+    drawClusteredCircles();
 }

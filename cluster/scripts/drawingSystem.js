@@ -17,9 +17,13 @@ document.querySelector('#modeSelector').onclick = function() {
     }
 }
 
-document.querySelector('#clearCanvas').onclick = function() {
-    var clearing = canvas.getContext("2d");
+function clearCanvas() {
+    let clearing = canvas.getContext("2d");
     clearing.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+document.querySelector('#clearCanvas').onclick = function() {
+    clearCanvas();
     circles = [];
 }
 
@@ -47,7 +51,7 @@ function getPosition(event) {
 }
 
 function drawCircle(circle, color) {
-    var circleDraw = canvas.getContext("2d");
+    let circleDraw = canvas.getContext("2d");
     circleDraw.beginPath();
     circleDraw.arc(circle.x, circle.y, RADIUS, 0, 2 * Math.PI);
     circleDraw.fillStyle = color;
@@ -62,9 +66,13 @@ function distanceToCircle(x, y, circle) {
     return Math.sqrt(Math.pow(circle.x - x, 2) + Math.pow(circle.y - y, 2)) - RADIUS;
 }
 
+function distance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
 function isNoCirclesNearby(circle) {
-    for (let i = 0; i < circles.length; i++) {
-        if (circlesDistance(circle, circles[i]) < 0) {
+    for (iterCircle of circles) {
+        if (circlesDistance(circle, iterCircle) < 0) {
             return false;
         }
     }
@@ -108,6 +116,30 @@ function drawOrErase(event) {
             }
             circles.splice(i, 1);
         }
+    }
+}
+
+function drawCross(x, y) {
+    let crossDraw = canvas.getContext("2d");
+    crossDraw.beginPath();
+    crossDraw.lineWidth = 5;
+
+    crossDraw.moveTo(x - 10, y - 10);
+    crossDraw.lineTo(x + 10, y + 10);
+    crossDraw.moveTo(x + 10, y - 10);
+    crossDraw.lineTo(x - 10, y + 10);
+    crossDraw.stroke();
+}
+
+function drawClusteredCircles() {
+    clearCanvas();
+
+    for (circle of circles) {
+        drawCircle(circle, clusterColors[circle.cluster]);
+    }
+    
+    for (centroid of centroids) {
+        drawCross(centroid.x, centroid.y);
     }
 }
 
