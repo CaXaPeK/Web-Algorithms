@@ -31,9 +31,9 @@ let clusterCount;
 let metricsType;
 let clusteringMethod;
 let epsilon;
-let minPts;
+let minCircles;
 
-let colors = [
+const colors = [
     "aqua",
     "aquamarine",
     "black",
@@ -64,7 +64,7 @@ let colors = [
     "tomato",
     "yellow",
     "yellowgreen",
-    "red"
+    "darkslategray"
 ];
 
 function distance(x1, y1, x2, y2) {
@@ -184,6 +184,10 @@ function startKMeans() {
     drawClusteredCircles();
 }
 
+function findMainCircles() {
+
+}
+
 function startDBSCAN() {
 
 }
@@ -210,9 +214,9 @@ document.querySelector('#epsilon').addEventListener("input", (event) => {
     epsilon = event.target.value;
 })
 
-document.querySelector('#minPts').addEventListener("input", (event) => {
-    let input = document.querySelector('#minPts');
-    let value = document.querySelector('#minPtsValue');
+document.querySelector('#minCircles').addEventListener("input", (event) => {
+    let input = document.querySelector('#minCircles');
+    let value = document.querySelector('#minCirclesValue');
     value.textContent = event.target.value;
-    minPts = event.target.value;
+    minCircles = event.target.value;
 })

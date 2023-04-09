@@ -8,11 +8,11 @@ let deleteModeOn = false;
 
 document.querySelector('#modeSelector').onclick = function() {
     if (deleteModeOn) {
-        document.getElementById('modeSelector').textContent = '🧽 Удалить точки';
+        document.getElementById('modeSelector').textContent = '🧽 Ластик';
         deleteModeOn = false;
     }
     else {
-        document.getElementById('modeSelector').textContent = '✏️ Рисовать точки';
+        document.getElementById('modeSelector').textContent = '✏️ Карандаш';
         deleteModeOn = true;
     }
 }
