@@ -120,11 +120,19 @@ function drawClusteredCircles() {
     clearCanvas();
 
     for (circle of circles) {
-        drawCircle(circle, clusterColors[circle.cluster]);
+        if (circle.cluster === "noise") {
+            drawCross(circle.x, circle.y);
+        }
+        else {
+            drawCircle(circle, clusterColors[circle.cluster]);
+        }
+        
     }
     
-    for (centroid of centroids) {
-        drawCross(centroid.x, centroid.y);
+    if (clusteringMethod === "kmeans") {
+        for (centroid of centroids) {
+            drawCross(centroid.x, centroid.y);
+        }
     }
 }
 

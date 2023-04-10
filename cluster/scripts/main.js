@@ -21,6 +21,17 @@ class Circle {
         }
         return false;
     }
+
+    neighborCount() {
+        let count = 0;
+        for (circle of circles) {
+            if (distance(this, circle) <= epsilon) {
+                count++;
+            }
+        }
+        count--;
+        return count;
+    }
 }
 
 let circles = [];
@@ -175,7 +186,6 @@ function startKMeans() {
         return;
     }
 
-    metricsType = document.getElementById('metricsSelector').value;
     centroids = [];
     
     generateStartCentroids();
@@ -184,16 +194,80 @@ function startKMeans() {
     drawClusteredCircles();
 }
 
-function findMainCircles() {
+function findNeighbors(circle) {
+    let neighborIds = new Set();
+    
+    for (let i = 0; i < circles.length; i++) {
+        if (distance(circle.x, circle.y, circles[i].x, circles[i].y) <= epsilon && circle !== circles[i]) {
+            neighborIds.add(i);
+        }
+    }
+    return neighborIds;
+}
 
+function uniteSets(set1, set2) {
+    let unitedSet = new Set(set1);
+    for (element of set2) {
+        unitedSet.add(element);
+    }
+    return unitedSet;
+}
+
+function unassignClusters() {
+    for (circle of circles) {
+        circle.cluster = -1;
+    }
 }
 
 function startDBSCAN() {
+    unassignClusters();
+    epsilon = document.getElementById('epsilon').value;
+    minCircles = document.getElementById('minCircles').value;
+    clusterCount = 0;
 
+    for (let i = 0; i < circles.length; i++) {
+        if (circles[i].cluster !== -1) {
+            continue;
+        }
+        
+        let neighborIds = findNeighbors(circles[i]);
+        //console.log(neighborIds.size);
+        if (neighborIds.size + 1 < minCircles) {    
+            circles[i].cluster = "noise";
+            continue;
+        }
+        
+        circles[i].cluster = clusterCount;
+        clusterCount++;
+
+        for (j of neighborIds) {
+            if (circles[j].cluster === "noise") {
+                circles[j].cluster = circles[i].cluster;
+            }
+            if (circles[j].cluster !== -1) {
+                continue;
+            }
+            circles[j].cluster = circles[i].cluster;
+
+            let newNeighborIds = findNeighbors(circles[j]);
+            if (newNeighborIds.size + 1 >= minCircles) {
+                neighborIds = uniteSets(neighborIds, newNeighborIds);
+            }
+        }
+    }
+
+    if (clusterCount > 30) {
+        alert("Я не умею отображать больше 30 кластеров!");
+        return;
+    }
+
+    assignClusterColors();
+    drawClusteredCircles();
 }
 
 document.querySelector('#algorithmStart').onclick = function() {
     clusteringMethod = document.getElementById('clusteringMethod').value;
+    metricsType = document.getElementById('metricsSelector').value;
 
     switch (clusteringMethod) {
         case "kmeans":
@@ -208,14 +282,12 @@ document.querySelector('#algorithmStart').onclick = function() {
 }
 
 document.querySelector('#epsilon').addEventListener("input", (event) => {
-    let input = document.querySelector('#epsilon');
     let value = document.querySelector('#epsilonValue');
     value.textContent = event.target.value;
     epsilon = event.target.value;
 })
 
 document.querySelector('#minCircles').addEventListener("input", (event) => {
-    let input = document.querySelector('#minCircles');
     let value = document.querySelector('#minCirclesValue');
     value.textContent = event.target.value;
     minCircles = event.target.value;
