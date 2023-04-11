@@ -23,6 +23,7 @@
             <select name="clusteringMethod" id="clusteringMethod">
                 <option value="kmeans">k-средних</option>
                 <option value="dbscan">DBSCAN</option>
+                <option value="hierarchial">Иерархический</option>
             </select>
         </p>
         <div>
@@ -38,7 +39,7 @@
             </div>
         </div>
         <p>
-            <b>--Настройки k-средних--</b>
+            <b>--Настройки k-средних и Иерархического--</b>
             <div>
                 🌑 Кластеров:
                 <input id="clusterCount" type="number" name="clusters" size="2" min="1" max="30" value="3">

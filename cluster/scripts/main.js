@@ -231,7 +231,6 @@ function startDBSCAN() {
         }
         
         let neighborIds = findNeighbors(circles[i]);
-        //console.log(neighborIds.size);
         if (neighborIds.size + 1 < minCircles) {    
             circles[i].cluster = "noise";
             continue;
@@ -265,6 +264,12 @@ function startDBSCAN() {
     drawClusteredCircles();
 }
 
+function startHierarchial() {
+    clusterCount = parseInt(document.getElementById('clusterCount').value);
+
+    
+}
+
 document.querySelector('#algorithmStart').onclick = function() {
     clusteringMethod = document.getElementById('clusteringMethod').value;
     metricsType = document.getElementById('metricsSelector').value;
@@ -275,6 +280,9 @@ document.querySelector('#algorithmStart').onclick = function() {
             break;
         case "dbscan":
             startDBSCAN();
+            break;
+        case "hierarchial":
+            startHierarchial();
             break;
         default:
             break;

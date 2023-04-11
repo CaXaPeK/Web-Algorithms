@@ -56,8 +56,24 @@ function drawCircle(circle, color) {
     let circleDraw = canvas.getContext("2d");
     circleDraw.beginPath();
     circleDraw.arc(circle.x, circle.y, RADIUS, 0, 2 * Math.PI);
+    circleDraw.lineTo(circle.x, circle.y);
     circleDraw.fillStyle = color;
     circleDraw.fill();
+}
+
+function drawPieCircle(circle, color1, color2, color3) {
+    let circleDraw = canvas.getContext("2d");
+    let startAngle = -5 * Math.PI / 6;
+    let colors = [color1, color2, color3];
+    
+    for (let i = 0; i < 3; i++) {
+        circleDraw.beginPath();
+        circleDraw.arc(circle.x, circle.y, RADIUS, startAngle, startAngle + 2 * Math.PI / 3);
+        circleDraw.lineTo(circle.x, circle.y);
+        circleDraw.fillStyle = colors[i];
+        circleDraw.fill();
+        startAngle += 2 * Math.PI / 3;
+    }
 }
 
 function circlesDistance(circle1, circle2) {
@@ -88,7 +104,8 @@ function drawOrErase(event) {
             circles.push(new Circle(x, y));
             clearCanvas();
             for (circle of circles) {
-                drawCircle(circle, "black");
+                //drawCircle(circle, "black");
+                drawPieCircle(circle, "red", "green", "blue");
             }
         }
     }
