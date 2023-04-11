@@ -3,6 +3,9 @@ class Circle {
         this.x = x;
         this.y = y;
         this.cluster = -1;
+        this.euclidCluster = -1;
+        this.manhattanCluster = -1;
+        this.chebyshevCluster = -1;
     }
 
     isNoCirclesNearby() {
@@ -189,8 +192,40 @@ function startKMeans() {
     centroids = [];
     
     generateStartCentroids();
+    let initialCentroids = centroids;
+
     assignClusterColors();
-    adjustCentroids();
+
+    if (metricsType !== "all") {
+        adjustCentroids();
+    }
+    else {
+        metricsType = "euclidian";
+        adjustCentroids();
+        for (circle of circles) {
+            circle.euclidCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+        centroids = initialCentroids;
+
+        metricsType = "manhattan";
+        adjustCentroids();
+        for (circle of circles) {
+            circle.manhattanCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+        centroids = initialCentroids;
+
+        metricsType = "chebyshev";
+        adjustCentroids();
+        for (circle of circles) {
+            circle.chebyshevCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+
+        metricsType = "all";
+    }
+    
     drawClusteredCircles();
 }
 
@@ -219,12 +254,7 @@ function unassignClusters() {
     }
 }
 
-function startDBSCAN() {
-    unassignClusters();
-    epsilon = document.getElementById('epsilon').value;
-    minCircles = document.getElementById('minCircles').value;
-    clusterCount = 0;
-
+function assignClustersDBSCAN() {
     for (let i = 0; i < circles.length; i++) {
         if (circles[i].cluster !== -1) {
             continue;
@@ -254,6 +284,47 @@ function startDBSCAN() {
             }
         }
     }
+}
+
+function startDBSCAN() {
+    unassignClusters();
+    epsilon = document.getElementById('epsilon').value;
+    minCircles = document.getElementById('minCircles').value;
+    clusterCount = 0;
+
+    if (metricsType !== "all") {
+        assignClustersDBSCAN();
+    }
+    else {
+        let maxClusterCount = 0;
+
+        metricsType = "euclidian";
+        assignClustersDBSCAN();
+        for (circle of circles) {
+            circle.euclidCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+        maxClusterCount = Math.max(clusterCount, maxClusterCount);
+        clusterCount = 0;
+
+        metricsType = "manhattan";
+        assignClustersDBSCAN();
+        for (circle of circles) {
+            circle.manhattanCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+        maxClusterCount = Math.max(clusterCount, maxClusterCount);
+        clusterCount = 0;
+
+        metricsType = "chebyshev";
+        assignClustersDBSCAN();
+        for (circle of circles) {
+            circle.chebyshevCluster = circle.cluster;
+            circle.cluster = -1;
+        }
+        clusterCount = Math.max(clusterCount, maxClusterCount);
+        metricsType = "all";
+    }
 
     if (clusterCount > 30) {
         alert("Я не умею отображать больше 30 кластеров!");
@@ -267,7 +338,7 @@ function startDBSCAN() {
 function startHierarchial() {
     clusterCount = parseInt(document.getElementById('clusterCount').value);
 
-    
+
 }
 
 document.querySelector('#algorithmStart').onclick = function() {

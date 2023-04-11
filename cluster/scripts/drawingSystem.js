@@ -65,13 +65,16 @@ function drawPieCircle(circle, color1, color2, color3) {
     let circleDraw = canvas.getContext("2d");
     let startAngle = -5 * Math.PI / 6;
     let colors = [color1, color2, color3];
-    
+
     for (let i = 0; i < 3; i++) {
-        circleDraw.beginPath();
-        circleDraw.arc(circle.x, circle.y, RADIUS, startAngle, startAngle + 2 * Math.PI / 3);
-        circleDraw.lineTo(circle.x, circle.y);
-        circleDraw.fillStyle = colors[i];
-        circleDraw.fill();
+        if (colors[i] !== "noise") {
+            circleDraw.beginPath();
+            circleDraw.arc(circle.x, circle.y, RADIUS, startAngle, startAngle + 2 * Math.PI / 3);
+            circleDraw.lineTo(circle.x, circle.y);
+            circleDraw.fillStyle = colors[i];
+            circleDraw.fill();
+        }
+        
         startAngle += 2 * Math.PI / 3;
     }
 }
@@ -104,8 +107,7 @@ function drawOrErase(event) {
             circles.push(new Circle(x, y));
             clearCanvas();
             for (circle of circles) {
-                //drawCircle(circle, "black");
-                drawPieCircle(circle, "red", "green", "blue");
+                drawCircle(circle, "black");
             }
         }
     }
@@ -121,34 +123,78 @@ function drawOrErase(event) {
     }
 }
 
-function drawCross(x, y) {
+function drawCross(x, y, lineWidth, lineLength) {
     let crossDraw = canvas.getContext("2d");
     crossDraw.beginPath();
-    crossDraw.lineWidth = 5;
+    crossDraw.lineWidth = lineWidth;
 
-    crossDraw.moveTo(x - 10, y - 10);
-    crossDraw.lineTo(x + 10, y + 10);
-    crossDraw.moveTo(x + 10, y - 10);
-    crossDraw.lineTo(x - 10, y + 10);
+    crossDraw.moveTo(x - lineLength, y - lineLength);
+    crossDraw.lineTo(x + lineLength, y + lineLength);
+    crossDraw.moveTo(x + lineLength, y - lineLength);
+    crossDraw.lineTo(x - lineLength, y + lineLength);
     crossDraw.stroke();
 }
 
 function drawClusteredCircles() {
     clearCanvas();
 
-    for (circle of circles) {
-        if (circle.cluster === "noise") {
-            drawCross(circle.x, circle.y);
-        }
-        else {
-            drawCircle(circle, clusterColors[circle.cluster]);
+    if (metricsType !== "all") {
+        for (circle of circles) {
+            if (circle.cluster === "noise") {
+                drawCross(circle.x, circle.y, 5, 10);
+            }
+            else {
+                drawCircle(circle, clusterColors[circle.cluster]);
+            }
+            
         }
         
+        if (clusteringMethod === "kmeans") {
+            for (centroid of centroids) {
+                drawCross(centroid.x, centroid.y, 5, 10);
+            }
+        }
     }
-    
-    if (clusteringMethod === "kmeans") {
-        for (centroid of centroids) {
-            drawCross(centroid.x, centroid.y);
+    else {
+        if (clusteringMethod === "kmeans") {
+            for (circle of circles) {
+                drawPieCircle(circle, clusterColors[circle.euclidCluster], clusterColors[circle.manhattanCluster], clusterColors[circle.chebyshevCluster]);
+            }
+            for (centroid of centroids) {
+                drawCross(centroid.x, centroid.y);
+            }
+        }
+
+        if (clusteringMethod === "dbscan") {
+            for (circle of circles) {
+                let color1, color2, color3;
+
+                if (circle.euclidCluster === "noise") {
+                    color1 = "noise";
+                    drawCross(circle.x, circle.y - 5, 2.5, 5);
+                }
+                else {
+                    color1 = clusterColors[circle.euclidCluster];
+                }
+
+                if (circle.manhattanCluster === "noise") {
+                    color2 = "noise";
+                    drawCross(circle.x + 5, circle.y + 5, 2.5, 5);
+                }
+                else {
+                    color2 = clusterColors[circle.manhattanCluster];
+                }
+
+                if (circle.chebyshevCluster === "noise") {
+                    color3 = "noise";
+                    drawCross(circle.x - 5, circle.y + 5, 2.5, 5);
+                }
+                else {
+                    color3 = clusterColors[circle.chebyshevCluster];
+                }
+
+                drawPieCircle(circle, color1, color2, color3);
+            }
         }
     }
 }
