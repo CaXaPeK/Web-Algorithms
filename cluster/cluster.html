@@ -6,18 +6,20 @@
         <link rel="stylesheet" href="cluster.css">
     </head>
 
-    <body>
+    <body>  
+        <button type="button" onclick="location.href='../index.html'">🔙 На главную</button>
         <h1>Кластеризация</h1>
-        <div class="wrapper" id="wrapper">
-            <div class="fieldCanvasClass">
-                <canvas id="fieldCanvas"></canvas>
-            </div>
+
+        <div class="fieldCanvasClass">
+            <canvas id="fieldCanvas"></canvas>
         </div>
+        
         <div>
             <button id="modeSelector">🧽 Ластик</button>
             <button id="clearCanvas">✖️ Очистить поле</button>
             <button id="algorithmStart">▶️ Запустить алгоритм</button>
         </div>
+
         <p>
             <b>Метод кластеризации:</b>
             <select name="clusteringMethod" id="clusteringMethod">
