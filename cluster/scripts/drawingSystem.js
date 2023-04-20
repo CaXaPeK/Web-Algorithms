@@ -156,12 +156,13 @@ function drawClusteredCircles() {
         }
     }
     else {
-        if (clusteringMethod === "kmeans") {
+        if (clusteringMethod === "kmeans" || clusteringMethod === "hierarchial") {
             for (circle of circles) {
                 drawPieCircle(circle, clusterColors[circle.euclidCluster], clusterColors[circle.manhattanCluster], clusterColors[circle.chebyshevCluster]);
             }
+            
             for (centroid of centroids) {
-                drawCross(centroid.x, centroid.y);
+                drawCross(centroid.x, centroid.y, 5, 10);
             }
         }
 
