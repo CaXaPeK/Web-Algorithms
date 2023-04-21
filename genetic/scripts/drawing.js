@@ -6,6 +6,26 @@ let circlesX = [];
 let circlesY = [];
 let RADIUS = 10;
 
+let deleteModeOn = false;
+
+document.querySelector('#modeSelector').onclick = function() {
+    if (deleteModeOn) {
+        document.getElementById('modeSelector').textContent = '🧽 Удалить точки';
+        deleteModeOn = false;
+    }
+    else {
+        document.getElementById('modeSelector').textContent = '✏️ Рисовать точки';
+        deleteModeOn = true;
+    }
+}
+
+document.querySelector('#clearCanvas').onclick = function() {
+    let clearing = canvas.getContext("2d");
+    clearing.clearRect(0, 0, canvas.width, canvas.height);
+    circlesX = [];
+    circlesY = [];
+}
+
 function getPosition(event) {
     let posX = 0;
     let posY = 0;
@@ -29,10 +49,11 @@ function getPosition(event) {
     }
 }
 
-function drawCircle(x, y) {
-    let circle = canvas.getContext("2d");
+function drawCircle(x, y, color) {
+    var circle = canvas.getContext("2d");
     circle.beginPath();
     circle.arc(x, y, RADIUS, 0, 2 * Math.PI);
+    circle.fillStyle = color;
     circle.fill();
 }
 
@@ -70,6 +91,10 @@ function circlesDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - RADIUS * 2;
 }
 
+function distanceToCircle(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) - RADIUS;
+}
+
 function isNoCirclesNearby(x, y) {
     for (let i = 0; i < circlesX.length; i++) {
         if (circlesDistance(x, y, circlesX[i], circlesY[i]) < 0) {
@@ -77,6 +102,15 @@ function isNoCirclesNearby(x, y) {
         }
     }
     return true;
+}
+
+function findSelectedCircle(x, y) {
+    for (let i = 0; i < circlesX.length; i++) {
+        if (distanceToCircle(x, y, circlesX[i], circlesY[i]) < 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 function isWithinCanvas(x, y) {
@@ -87,25 +121,37 @@ function isWithinCanvas(x, y) {
     return false;
 }
 
-function draw(event) {
+function drawOrErase(event) {
     let absoluteX = getPosition(event).x;
     let absoluteY = getPosition(event).y;
     let x = absoluteX - canvas.offsetLeft;
     let y = absoluteY - canvas.offsetTop;
-    if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
-        drawCircle(x, y);
-        circlesX.push(x);
-        circlesY.push(y);
+    if (!deleteModeOn) {
+        if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
+            drawCircle(x, y, "black");
+            circlesX.push(x);
+            circlesY.push(y);
+        }
+    }
+    else {
+        let i = findSelectedCircle(x, y);
+        if (i >= 0) {
+            for (j = 0; j < 5; j++) {
+                drawCircle(circlesX[i], circlesY[i], "#fdff8b");
+            }
+            circlesX.splice(i, 1);
+            circlesY.splice(i, 1);
+        }
     }
 }
 
 function drawStart() {
-    document.addEventListener('click', draw);
-    document.addEventListener('mousemove', draw);
+    document.addEventListener('click', drawOrErase);
+    document.addEventListener('mousemove', drawOrErase);
 }
 
 function drawStop() {
-    document.removeEventListener('mousemove', draw);
+    document.removeEventListener('mousemove', drawOrErase);
 }
 
 document.addEventListener('mousedown', drawStart);

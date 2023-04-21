@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>Дерево решений</title>
+    <link rel="stylesheet" href="tree.css">
+    
+</head>
+
+<body>
+    <h1>🌳Дерево решений</h1>
+    <div class="back">
+        <p></p>
+        <a class="back-link" href="../index.html" target="_self"><b>← На главную</b></a>
+        <p></p>
+    </div>
+
+    <div class="wrapper" id="wrapper">
+        <div class="toolbar">
+            <div class="build-tree">
+                <div class="button-section"><b>Построение дерева:</b></div>
+                <button id="getFile1_button">🌳 Построить дерево 1</button>
+                <button id="getFile2_button">🌲 Построить дерево 2</button>
+                <button id="getFile3_button">🌴 Построить дерево 3</button>
+                <button id="getFile_button">🎋 Построить своё дерево</button>
+            </div>
+            
+            <div class="work-tree">
+                <div class="button-section"><b>Работа с деревом:</b></div>
+                <button id="start_button">▶️ Запустить обход</button>
+                <button id="reset_button">❌ Очистить все</button>
+                <button id="optimize_button">🛠 Оптимизировать</button>
+                <input id="file_input" type="file">
+                <label class="label" for='file_input'>📁 Загрузить файл с обучающей выборкой</label>
+            </div>
+
+            <div class="textbox">
+                <div class="button-section"><b>Ваш запрос:</b></div>
+                <textarea id="input_data" name="input_data" cols="40" rows="5"></textarea></p>
+            </div>
+            
+            
+
+        </div>
+        <div class="canvas">
+            <div class="tree" id="tree">
+                <ul id="root">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./recieveData.js"></script>
+    <script src="./data.js"></script>
+    <script src="./tree.js"></script>
+    <script src="./bonus.js"></script>
+    <script src="./interface.js"></script>
+
+</body>
+</html>
