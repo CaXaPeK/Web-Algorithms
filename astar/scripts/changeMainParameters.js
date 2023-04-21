@@ -80,15 +80,15 @@ function changeAccesebility(action, amount) {
 function initializeLabirynth() {
     clearLabirynth()
     size = document.getElementById("gridSizeText").textContent;
-    let y_start = document.getElementById("getInfo").getBoundingClientRect().bottom;
+    let x_start = document.getElementById("toolbar").getBoundingClientRect().right + 20;
     for (let i = 0; i < size; ++i) {
         let row = document.createElement('div');
         row.className = "row";
         for (let j = 0; j < size; ++j) {
             let temp = document.createElement('span');
             temp.id = "cell." + i + "." + j;
-            temp.style.left = 20*(j+1)+'px';
-            temp.style.top = y_start+20*(i+1)+'px';
+            temp.style.left = x_start+20*(j+1)+'px';
+            temp.style.top = 150+20*(i+1)+'px';
             temp.className = "blankCell";
             temp.setAttribute("pos", i*size + j);
             row.appendChild(temp);

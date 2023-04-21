@@ -13,23 +13,35 @@
         <p></p>
     </div>
 
-    <label>Выберите размер сетки</label>
-    <input id="gridSizeSlider" type="range" min="5" max="100" step="1" value="30">
-    <output id="gridSizeText">30</output>
-    <br />
-    <label>Выберите скорость анимации</label>
-    <input id="animationSpeedSlider" type="range" min="10" max="1000" step="10" value="30">
-    <br />
-    <label>Выберите режим клика</label>
-    <select id="selectorCellType"> 
-        <option value="wall" selected="selected">Выбор стены</option>
-        <option value="startPoint">Выбор начальной точки</option>
-        <option value="endPoint">Выбор конечной точки</option>
-    </select>
-    <br>
-    <button id="getInfo">Получить справку</button>
-    <button id="generateLabirynth" hidden="hidden">Сгенерировать лабиринт</button>
-    <button id="findPathButton" hidden="hidden">Найти путь</button>
+    <div class="toolbar" id="toolbar">
+        <div class="settings">
+            <div class="grid-size">
+                <label>Размер сетки:</label>
+                <input id="gridSizeSlider" type="range" min="10" max="100" step="1" value="30">
+                <output id="gridSizeText">30</output>
+            </div>
+            <div class="animation-speed">
+                <label>Скорость анимации:</label>
+                <input id="animationSpeedSlider" type="range" min="10" max="1000" step="10" value="30">
+            </div>
+            <div class="selector-mode">
+                <label>Выбор</label>
+                <select id="selectorCellType"> 
+                    <option value="wall" selected="selected">стены</option>
+                    <option value="startPoint">начальной точки</option>
+                    <option value="endPoint">конечной точки</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-buttons">
+            <button id="getInfo">Получить справку</button>
+            <button id="generateLabirynth" hidden="hidden">Сгенерировать лабиринт</button>
+            <button id="findPathButton" hidden="hidden">Найти путь</button>
+        </div>
+    </div>
+    
+    
 </body>
 <script src="scripts/changeMainParameters.js" defer></script>
 <script src="scripts/findShortestPath.js" defer></script>

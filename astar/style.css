@@ -45,6 +45,78 @@ a:hover {
     text-decoration: underline;
 }
 
+button {
+    font-family: "SB Sans", normal;
+    color: #372a18;
+    width: 220px;
+    height: 50px;
+    font-size: large;
+    border: 0px solid #ff8b8b;
+    border-radius: 10px;
+    background-color: #ff8b8b;
+    margin: 5px;
+}
+
+button:hover {
+    border: 2px solid white;
+}
+
+button:active {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.274);
+}
+
+.toolbar {
+    position: absolute;
+    width: 350px;
+    height: 300px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items:center;
+    background-color: #ff8b8b56;
+    margin-top: 20vh;
+    margin-left: -25px;
+    border-radius: 20px;
+}
+
+.selector-mode {
+    margin-top: 10px;
+}
+
+.control-buttons {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items:center;
+}
+
+option, select, input {
+    height: 20px;
+    font-family: "SB Sans";
+    color: #371818;
+    background-color: #ff8b8b;
+    border: 0px;
+    border-radius: 5px;
+}
+
+range {
+    color:#ff8b8b;
+}
+
+input[type=range] {
+    transform: translateY(4px);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #ff8b8b;
+    background: #ff8b8b;
+    border-radius: 14px;
+    border: 0px solid #000000;
+}
+
 /* Код Феди */
 
 div span {
@@ -52,10 +124,6 @@ div span {
     height: 20px; 
     position: absolute; 
     border: 1px solid black;
-}
-
-button:hover {
-    background-color:grey;
 }
 
 .possibleWay {
