@@ -78,12 +78,6 @@ a {
 
 a:hover { text-decoration: underline; }
 
-.bg-wrap {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-}
-
 .sponsor {
     text-align: right;
     margin-right: 20px;

@@ -1,0 +1,123 @@
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-SemiBold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+body {
+    font-family: "SB Sans", normal;
+    background-color: #371818;
+    color: #ff8b8b;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #ff8b8b;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    transform: rotate(-15deg) translateX(-15px) translateY(-20px);
+    
+    background-color: #ff8b8b56;
+}
+
+.back-link {
+    margin-left: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #ff8b8b;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Код Феди */
+
+div span {
+    width: 20px; 
+    height: 20px; 
+    position: absolute; 
+    border: 1px solid black;
+}
+
+button:hover {
+    background-color:grey;
+}
+
+.possibleWay {
+    background-color: blueviolet;
+}
+
+.possibleWay:hover {
+    background-color: rgb(178, 95, 255);
+}
+
+.seenCell {
+    background-color: violet;
+}
+
+.seenCell:hover {
+    background-color: rgb(196, 17, 121);
+}
+
+.currentCell {
+    background-color: rgb(87, 87, 255);
+}
+
+.currentCell:hover {
+    background-color: blue;
+}
+
+.blankCell {
+    background-color: #ff8b8b;
+}
+
+.blankCell:hover {
+    background-color: white;
+}
+
+.wall {
+    background-color: rgb(28, 27, 46);
+}
+
+.wall:hover{
+    background-color: black;
+}
+
+.startPoint {
+    background-color: rgb(255, 255, 174);
+}
+
+.startPoint:hover {
+    background-color: rgb(255, 216, 40);
+}
+
+.endPoint {
+    background-color: green;
+}
+
+.endPoint:hover{
+    background-color: rgb(22, 110, 22);
+}
+
+.theWay {
+    background-color: yellowgreen;
+}
+
+.theWay:hover{
+    background-color: rgb(156, 185, 96);
+}

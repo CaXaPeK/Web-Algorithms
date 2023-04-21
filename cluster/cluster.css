@@ -1,5 +1,140 @@
-.fieldCanvasClass {
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-SemiBold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+body {
+    font-family: "SB Sans", normal;
+    background-color: #372a18;
+}
+
+#fieldCanvas {
     width: 500px;
-    height: 500px;
-    border: 1px solid #000000;
+    height: 500px;  
+    background-color: #ffc98b;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #ffc98b;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    transform: rotate(-15deg) translateX(-15px) translateY(-20px);
+    
+    background-color: #ffc98b56;
+}
+
+.back-link {
+    margin-left: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #ffc98b;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings {
+    color: #ffc98b;
+}
+
+.control-buttons {
+    width: 250px;
+    height: 200px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items:center;
+    background-color: #ffc98b56;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+option, select, input {
+    height: 20px;
+    font-family: "SB Sans";
+    color: #372a18;
+    background-color: #ffc98b;
+    border: 0px;
+    border-radius: 5px;
+}
+
+button {
+    font-family: "SB Sans", bold;
+    color: #372a18;
+    width: 220px;
+    height: 50px;
+    font-size: large;
+    border: 0px solid #ffc98b;
+    border-radius: 10px;
+    background-color: #ffc98b;
+    margin: 5px;
+}
+
+button:hover {
+    border: 2px solid white;
+}
+
+button:active {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.274);
+}
+
+.settings {
+    width: 435px;
+    background-color: #ffc98b56;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+.separator {
+    width: 100%;
+    height: 2px;
+    background-color: #372a18;
+}
+
+.general-settings, .kmeans-and-hierarchial-settings, .dbscan-settings {
+    margin: 10px;
+}
+
+range {
+    color:#ffc98b;
+}
+
+input[type=range] {
+    transform: translateY(4px);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #ffc98b;
+    background: #ffc98b;
+    border-radius: 14px;
+    border: 0px solid #000000;
 }

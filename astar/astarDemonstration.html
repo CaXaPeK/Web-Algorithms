@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>A*</title>
+</head>
+<body>
+    <link rel="stylesheet" href = "style.css"> 
+    <h1>Алгоритм A⭐</h1>
+    <div class="back">
+        <p></p>
+        <a class="back-link" href="../index.html" target="_self"><b>← На главную</b></a>
+        <p></p>
+    </div>
+
+    <label>Выберите размер сетки</label>
+    <input id="gridSizeSlider" type="range" min="5" max="100" step="1" value="30">
+    <output id="gridSizeText">30</output>
+    <br />
+    <label>Выберите скорость анимации</label>
+    <input id="animationSpeedSlider" type="range" min="10" max="1000" step="10" value="30">
+    <br />
+    <label>Выберите режим клика</label>
+    <select id="selectorCellType"> 
+        <option value="wall" selected="selected">Выбор стены</option>
+        <option value="startPoint">Выбор начальной точки</option>
+        <option value="endPoint">Выбор конечной точки</option>
+    </select>
+    <br>
+    <button id="getInfo">Получить справку</button>
+    <button id="generateLabirynth" hidden="hidden">Сгенерировать лабиринт</button>
+    <button id="findPathButton" hidden="hidden">Найти путь</button>
+</body>
+<script src="scripts/changeMainParameters.js" defer></script>
+<script src="scripts/findShortestPath.js" defer></script>
+<script src="scripts/generateLabirynth.js" defer></script>
+</html>

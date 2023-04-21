@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <title>Генетический алгоритм</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>Генетический алгоритм</h1>
+        <label>Выберите скорость анимации</label>
+        <input id="animationSpeedSlider" type="range" min="10" max="1000" step="10" value="30">
+        <br />
+        <label>Выберите размер популяции</label>
+        <input id="populationSizeSlider" type="range" min="3" max="100" step="1" value="10">
+        <output id="populationSizeText">10</output>
+        <br />
+        <label>Выберите шанс мутации</label>
+        <input id="mutationChanceSlider" type="range" min="0" max="100" step="1" value="5">
+        <output id="mutationChanceText">5</output>
+        <br />
+        <label>Выберите количество поколений</label>
+        <input id="generationAmountSlider" type="range" min="5" max="100" step="1" value="30">
+        <output id="generationAmountText">30</output>
+        <br />
+        <div class="wrapper" id="wrapper">
+            <div class="fieldCanvasClass">
+                <canvas id="fieldCanvas"></canvas>
+            </div>
+        </div>
+        <button id="modeSelector">🧽 Удалить точки</button>
+        <button id="clearCanvas">✖️ Очистить поле</button>
+        <br>
+        <button id="executeAlgorithm">Выполнить генетический алгоритм</button>
+    </body>
+    <script src="scripts/drawing.js" defer></script>
+    <script src="scripts/changeParameters.js" defer></script>
+    <script src="scripts/executeAlgorithm.js" defer></script>
+</html>
