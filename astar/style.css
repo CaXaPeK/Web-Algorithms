@@ -51,6 +51,7 @@ button {
     width: 220px;
     height: 50px;
     font-size: large;
+    font-weight: bold;
     border: 0px solid #ff8b8b;
     border-radius: 10px;
     background-color: #ff8b8b;

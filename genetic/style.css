@@ -76,9 +76,10 @@ a:hover {
 button {
     font-family: "SB Sans", normal;
     color: #373418;
-    width: 220px;
+    width: 225px;
     height: 50px;
     font-size: large;
+    font-weight: bold;
     border: 0px solid #fff78b;
     border-radius: 10px;
     background-color: #fffd8b;

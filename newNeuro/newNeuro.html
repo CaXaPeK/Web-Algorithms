@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+    <link rel="stylesheet" href = "style.css"> 
+    <h1>🧠Нейросеть Мистера Биста</h1>
+    <div class="back">
+        <p></p>
+        <a class="back-link" href="../index.html" target="_self"><b>← На главную</b></a>
+        <p></p>
+    </div>
+
+    <div id="output"></div>
+
+    <div class="wrapper">
+        <div class="interactive">
+            <canvas id="fieldCanvas"></canvas>
+            <br>
+            <button id="clearCanvas">✖️ Очистить поле</button>
+        </div>
+    </div>
+    
+    <p id="answer">Нарисуйте цифру.</p>
+
+    <picture class="mrbeast">
+        <source srcset="mrbeast.png" media="(orientation: portrait)">
+        <img src="mrbeast.png" width="259" height="310">
+    </picture>
+</body>
+<script src="scripts/drawing.js" defer></script> 
+<script src="scripts/mainScript.js" defer></script> 
+<script src="scripts/weights.js" defer></script> 
+</html>

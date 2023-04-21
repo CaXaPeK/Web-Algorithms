@@ -82,8 +82,10 @@ option, select, input {
 }
 
 button {
+    font-family: "SB Sans";
     color: #372a18;
-    width: 220px;
+    font-weight: bold;
+    width: 225px;
     height: 50px;
     font-size: large;
     border: 0px solid #ffb68b;
