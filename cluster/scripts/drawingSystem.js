@@ -160,9 +160,11 @@ function drawClusteredCircles() {
             for (circle of circles) {
                 drawPieCircle(circle, clusterColors[circle.euclidCluster], clusterColors[circle.manhattanCluster], clusterColors[circle.chebyshevCluster]);
             }
-            
-            for (centroid of centroids) {
-                drawCross(centroid.x, centroid.y, 5, 10);
+
+            if (clusteringMethod === "kmeans") {
+                for (centroid of centroids) {
+                    drawCross(centroid.x, centroid.y, 5, 10);
+                }
             }
         }
 
