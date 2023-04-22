@@ -32,7 +32,7 @@ function chooseIndex2() {
 
 startTreeBuilding(getData(index));
 
-let treeRoot = document.getElementById("root");//ul html
+let treeRoot = document.getElementById("root");
 
 function createTree() {
     treeRoot = removeTree();
@@ -41,14 +41,12 @@ function createTree() {
         drawTree(root, treeRoot);
     }
     else {
-        console.log("!")
-        let data = FILE.files[0];
+        let dataBase = FILE.files[0];
         let reader = new FileReader();
-        reader.readAsText(data);
+        reader.readAsText(dataBase);
         reader.onload = function () {
-            console.log(data);
-            data = recieveData(reader.result);
-            startTreeBuilding(data);
+            dataBase = recieveData(reader.result);
+            startTreeBuilding(dataBase);
             drawTree(root, treeRoot);
         }
     }
@@ -69,14 +67,11 @@ function reset() {
 
 
 function drawTree(currentNode, treeElement) {
-    //console.log(currentNode, treeElement);
     let li = document.createElement("li");
     let a = document.createElement("a");
-    //console.log(a);
     currentNode.a = a;
     a.href = "#";
     let nodeName = currentNode.name;
-    //console.log('draw' + currentNode)
     if(nodeName === "root") {
         a.textContent = nodeName;
     }
@@ -87,7 +82,7 @@ function drawTree(currentNode, treeElement) {
     
     li.appendChild(a);
     treeElement.appendChild(li);
-    if(currentNode.isleaf){
+    if(currentNode.isleaf || currentNode.isLeaf()) { 
         let finalUl = document.createElement("ul");
         let finalLi = document.createElement("li");
         let finalA = document.createElement("a");
@@ -108,7 +103,6 @@ function drawTree(currentNode, treeElement) {
 
 function optimize() {
     if(flag) {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         if (FILE.value === '') {
             root = new TreeNode(getData(index), 'root');
         } else {

@@ -9,10 +9,13 @@ function recieveData(csvText, sep = ","){
         currRow = [];
         for(let j = 0; j < cells.length; j++){
             cells[j] = cells[j].trim();
+            if (cells[j].length === 0 || cells[j] === undefined) {
+                alert("Загрузите, пожалуйста, файл без пропусков, будьте добры... А то как-то... Что загрузишь то и получишь... Вопросы конечно возникают к Data Scientist'у, вопросы...");
+                return;
+            }
             currRow.push(cells[j]);
         }
         matrix.push(currRow);   
     }
-    //console.log(matrix);
     return matrix;
 }

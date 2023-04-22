@@ -169,3 +169,17 @@ function unhideInfo() {
         document.getElementById('info').hidden = true;
     }
 }
+
+document.querySelector('#info').onclick = function() {
+    document.getElementById('infoBoxContainer').hidden = "";
+    document.getElementById('infoBoxContainer').style.display = "flex";
+    document.getElementById('infoBoxContainer').style.animation = "1s dim ease";
+    document.getElementById('infoBox').style.animation = "1s move ease";
+    //console.log(2);
+}
+
+document.querySelector('#close').onclick = function() {
+    document.getElementById('infoBoxContainer').hidden = "hidden";
+    document.getElementById('infoBoxContainer').style.display = "none";
+    //console.log(1);
+}

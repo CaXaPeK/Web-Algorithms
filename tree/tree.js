@@ -13,11 +13,12 @@ class TreeNode {
     };
     
     isLeaf() {
-        if (this.children == undefined || this.children.length == 0) {
+        if (this.children == undefined)
+            return true; 
+        if(this.children.length == 0) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 }
 
@@ -31,16 +32,14 @@ function startTreeBuilding(matrix) {
 
 function buildTree (node){
     let splittingParameter = chooseSplittingParameter(node.data);
-
     node.value = splittingParameter["data"]["value"]["maxValue"];
 
     node.valuePercentage = splittingParameter["data"]["value"]["sure"];
     node.decisionMaker = splittingParameter["feature"];
-    
     for (featureVal in splittingParameter["data"]["arrays"]) {
         let treeNode = new TreeNode(splittingParameter["data"]["arrays"][featureVal]["array"], featureVal);
         treeNode.parent = node;
-        if (treeNode.data.length > 2) {
+        if (treeNode.data[0].length > 2 && splittingParameter["data"]['entropy'] !== 999) {
           buildTree(treeNode);
         } else {
             treeNode.isleaf = true;
@@ -94,7 +93,6 @@ async function gradient(RGB, node) {
     let rgb = getRGB(RGB);
     node.a.style.backgroundColor = 'rgb('+ rgb[0] +','+ rgb[1] +','+ rgb[2] +')';
     await sleep(100);
-    
 } 
 
 function getRGB(str){
@@ -113,12 +111,10 @@ function sleep(ms) {
 } 
 
 function doubleDecision(currentNode, array) {
-    console.log(currentNode.children[0].name[0]);
     if (currentNode.children[0].name[0] === "<") {
         let num = currentNode.children[0].name;
         num = num.replace('<', '');
         for (let j = 0; j < array.length; j++) {
-            console.log(array[j], isNaN(parseFloat(array[j])) );
             if (!isNaN(parseFloat(array[j]))) {
                 if (parseFloat(array[j]) < parseFloat(num))  {
                     return 0;
@@ -133,53 +129,8 @@ function doubleDecision(currentNode, array) {
     
 }
 
-/*newTree(root);
-
-function newTree(node) {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    optimizeTree(node);
-    outputTree(node);
-    
-}
-
-function outputTree(node) {
-    for (let i = 0; i < node.children.length; i++) {
-        outputTree(node.children[i]);
-    }
-    console.log(node.name);
-}
-
-function optimizeTree(node) {
-    console.log(node);
-    let flag = true;
-    for (let i = 1; i < node.children.length; i++) {
-        if (node.children[i].valuePercentage === 1 && node.children[i].value !== node.children[i - 1].value) {
-            flag = false;
-            break;
-        }
-    }
-
-    if (!flag) {
-        optimizeTree(node.children[i]);
-        for (let i = 1; i < node.children.length; i++) {
-            optimizeTree(node.children[i]);
-        }
-    } else {
-        console.log(node.name);
-        if (node.children.length > 0) {
-            node.value = node.children[0].value;
-            node.valuePercentage = node.children[0].valuePercentage;
-            node.name = node.children[0].name;
-            node.children = [];
-        }
-    }
-}*/
-
-
 function chooseSplittingParameter(matrix){
-
     let featuresList = {};
-    //let celSet = new Set();
 
     for(let i = 1; i < matrix.length ; i++){
         celSet.add(matrix[i][matrix[i].length-1]);
@@ -206,11 +157,9 @@ function chooseSplittingParameter(matrix){
                 let il = 0, ir = 0;
                 for (let i = 1; i < matrix.length; i++) {
                     if (i === doubleResult["indexes"]["leftIndexes"][il] + 1) {
-                        //console.log(doubleResult["indexes"]["leftIndexes"][il], i);
                         featureDict["arrays"][leftName]["array"].push(matrix[i]);
                         il++;
                     } else {
-                        //console.log(doubleResult["indexes"]["rightIndexes"][ir], i);
                         featureDict["arrays"][rightName]["array"].push(matrix[i]);
                         ir ++;
                     }
@@ -263,17 +212,15 @@ function chooseSplittingParameter(matrix){
     }
 
 
-    let finalEntropy = 999;
+    let finalEntropy = 1000;
     let finalDecisionMaker = undefined;
     for(let feature in featuresList) {
-        
         if (featuresList[feature]["data"]["entropy"] < finalEntropy) {
             finalEntropy = featuresList[feature]["data"]["entropy"];
             finalDecisionMaker = featuresList[feature];
         }
 
     }
-    //console.log(finalDecisionMaker, finalEntropy);
     return finalDecisionMaker;
 
 
@@ -316,8 +263,7 @@ function chooseSplittingParameter(matrix){
         for (let i = 1; i < numsSorted.length; ++ i) {
 
             if (numsSorted[i].celElem !== numsSorted[i-1].celElem) {
-                let currEntropy = part1.length / numsSorted.length * doubleEntropy(part1); + part2.length / numsSorted.length * doubleEntropy(part2);
-
+                let currEntropy = part1.length / numsSorted.length * doubleEntropy(part1) + part2.length / numsSorted.length * doubleEntropy(part2);
                 if (currEntropy < finalEntropy) {
                     finalEntropy = currEntropy;
                     borderIndex = i;
@@ -330,12 +276,10 @@ function chooseSplittingParameter(matrix){
 
         result["entropy"] = finalEntropy;
         result["indexes"] = {"rightIndexes" : [], "leftIndexes" : []};
-        //console.log("!!!", numsSorted);
         if (borderIndex === undefined) {
           borderIndex = 1;
         }
         if (numsSorted.length < 2) {
-            //console.log(result);
             return result;
         }
         result["splittingParameter"] = (numsSorted[borderIndex].value + numsSorted[borderIndex - 1].value) / 2;
@@ -346,7 +290,6 @@ function chooseSplittingParameter(matrix){
                 result["indexes"]["rightIndexes"].push(i);
             }
         }
-        //console.log(result);
         return(result);
     }
 
@@ -358,8 +301,6 @@ function chooseSplittingParameter(matrix){
         for (let i = 0; i < nums.length; ++ i) {
             cels[nums[i].celElem] += 1;
         }
-        
-        //console.log(cels);
 
         let localEntropy = 0;
 
@@ -405,11 +346,13 @@ function chooseSplittingParameter(matrix){
 
     function decisionValue() {
         let celDict = {};
-        let maxCount = 0;
+        let maxCount = -1;
         let maxVal = undefined;
+
         for(let val of celSet){
             celDict[val] = 0;
         }
+
         for (let i = 1; i < matrix.length; i++) {
             celDict[matrix[i][matrix[0].length - 1]] ++;
         }
@@ -418,11 +361,11 @@ function chooseSplittingParameter(matrix){
         for(let val of celSet){
             if (celDict[val] > maxCount) {
                 maxVal = val;
-                sure = celDict[maxVal] / (matrix.length - 1)
+                maxCount = celDict[val];
+                sure = celDict[val] / (matrix.length - 1);
             }
         }
         let value = {"maxValue": maxVal, "sure": sure};
-        //console.log(value, matrix);
         return value;
     }
 

@@ -95,7 +95,7 @@ function imageToGrayscale(input) {
         for (let j = 0; j < input.width; ++j) {
             let currentIndex = i * 4 * input.width + j * 4;
             let alpha = input.data[currentIndex + 3];
-            if (alpha == 0) {
+            if (alpha === 0) {
                 input.data[currentIndex] = 255;
                 input.data[currentIndex + 1] = 255;
                 input.data[currentIndex + 2] = 255;

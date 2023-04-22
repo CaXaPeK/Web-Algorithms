@@ -1,3 +1,5 @@
+let algorithmIsWorking = false;
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -122,6 +124,8 @@ function crossing(firstParent, secondParent, map) {
 }
 
 document.querySelector('#executeAlgorithm').onclick = async function() {
+    algorithmIsWorking = true;
+    document.getElementById("executeAlgorithm").hidden = "hidden"; 
     changeAccesebility("disable", "some");
     let map = [[]];
     map = initializeMap();
@@ -162,6 +166,6 @@ document.querySelector('#executeAlgorithm').onclick = async function() {
         await sleep(parseInt(50000/animationSpeed));
     } 
     alert("Алгоритм завершил свою работу!");
-    document.getElementById("executeAlgorithm").hidden = "hidden"; 
     changeAccesebility("enable", "all");
+    algorithmIsWorking = false;
 }

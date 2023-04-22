@@ -24,6 +24,7 @@ document.querySelector('#clearCanvas').onclick = function() {
     clearing.clearRect(0, 0, canvas.width, canvas.height);
     circlesX = [];
     circlesY = [];
+    document.getElementById("executeAlgorithm").hidden = "";
 }
 
 function getPosition(event) {
@@ -126,21 +127,23 @@ function drawOrErase(event) {
     let absoluteY = getPosition(event).y;
     let x = absoluteX - canvas.offsetLeft;
     let y = absoluteY - canvas.offsetTop;
-    if (!deleteModeOn) {
-        if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
-            drawCircle(x, y, "black");
-            circlesX.push(x);
-            circlesY.push(y);
-        }
-    }
-    else {
-        let i = findSelectedCircle(x, y);
-        if (i >= 0) {
-            for (j = 0; j < 5; j++) {
-                drawCircle(circlesX[i], circlesY[i], "#fdff8b");
+    if (!algorithmIsWorking) {
+        if (!deleteModeOn) {
+            if (isNoCirclesNearby(x, y) && isWithinCanvas(absoluteX, absoluteY)) {
+                drawCircle(x, y, "black");
+                circlesX.push(x);
+                circlesY.push(y);
             }
-            circlesX.splice(i, 1);
-            circlesY.splice(i, 1);
+        }
+        else {
+            let i = findSelectedCircle(x, y);
+            if (i >= 0) {
+                for (j = 0; j < 5; j++) {
+                    drawCircle(circlesX[i], circlesY[i], "#fdff8b");
+                }
+                circlesX.splice(i, 1);
+                circlesY.splice(i, 1);
+            }
         }
     }
 }
