@@ -9,23 +9,23 @@ const FILE = document.getElementById('file_input');
 let flag = true;
 let root;
 
-document.getElementById('input_data').value = "Солнечно, Жарко, Высокая, Слабый, Прохладно, 2";
+document.getElementById('input_data').value = "Hair, Legs, Toothed, Breathes";
 let index = 0;
 
 function chooseIndex0() {
-    document.getElementById('input_data').value = "Пасмурно, Прохладно, Нормальная, Слабый, Прохладно, 46";
+    document.getElementById('input_data').value = "Hair, Legs, Toothed, Breathes";
     index = 0;
     createTree();
 }
 
 function chooseIndex1() {
-    document.getElementById('input_data').value = "Ниже,     Дома,    Пропускают, Да";
+    document.getElementById('input_data').value = "Выше,     Нет,    На месте";
     index = 1;
     createTree();
 }
 
 function chooseIndex2() {
-    document.getElementById('input_data').value = "";
+    document.getElementById('input_data').value = "TANG,ON DINH,CAO,TB";
     index = 2;
     createTree();
 }
@@ -56,7 +56,6 @@ function createTree() {
 function start() {
     if(flag) {
         makeDecision();
-        flag = false;
     }
 }
 
@@ -87,7 +86,7 @@ function drawTree(currentNode, treeElement) {
         let finalLi = document.createElement("li");
         let finalA = document.createElement("a");
         finalA.href = "#";
-        finalA.textContent = currentNode.value
+        finalA.textContent = currentNode.value;
         finalLi.appendChild(finalA);
         finalUl.appendChild(finalLi);
         li.appendChild(finalUl);
@@ -131,16 +130,3 @@ function removeTree() {
 }
 
 drawTree(root, treeRoot);
-
-const list = document.getElementById('root');
-
-list.addEventListener('wheel', function(event) {
-    event.preventDefault();
-
-    const delta = Math.sign(event.deltaY);
-    const zoomValue = parseFloat(window.getComputedStyle(list).zoom) || 1;
-
-    if (zoomValue - delta > 0.1 && zoomValue - delta < 5) {
-        list.style.zoom = zoomValue - delta;
-    }
-})
