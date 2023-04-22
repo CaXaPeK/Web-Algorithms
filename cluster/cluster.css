@@ -137,3 +137,16 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 14px;
     border: 0px solid #000000;
 }
+
+.info {
+    width: auto;
+    height: auto;
+    background-color: #7a543f;
+    color: #ffb68b;
+    font-size:medium;
+}
+
+.info:hover {
+    text-decoration: underline;
+    border: 0px;
+}

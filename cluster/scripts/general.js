@@ -160,3 +160,12 @@ document.querySelector('#minCircles').addEventListener("input", (event) => {
     value.textContent = event.target.value;
     minCircles = event.target.value;
 })
+
+function unhideInfo() {
+    if (document.getElementById('metricsSelector').value === "all") {
+        document.getElementById('info').hidden = false;
+    }
+    else {
+        document.getElementById('info').hidden = true;
+    }
+}

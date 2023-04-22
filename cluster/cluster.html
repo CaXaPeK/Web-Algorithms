@@ -39,12 +39,13 @@
                     </div>
                     <div class="metrics-settings">
                         📏 Метрика:
-                        <select name="metricsSelector" id="metricsSelector">
+                        <select name="metricsSelector" id="metricsSelector" onchange="unhideInfo();">
                             <option value="euclidian">Евклидова</option>
                             <option value="manhattan">Манхэттенская</option>
                             <option value="chebyshev">Чебышёва</option>
                             <option value="all">Всё везде и сразу</option>
                         </select>
+                        <button class="info" id="info" hidden="hidden">ℹ️ Что это значит?</button>
                     </div>
                 </div>
 
