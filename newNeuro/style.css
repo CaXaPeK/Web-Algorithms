@@ -1,0 +1,107 @@
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-SemiBold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "SB Sans";
+    src: url('../fonts/SBSansDisplay-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+body {
+    font-family: "SB Sans", normal;
+    background-color: #1a1837;
+    color: #978bff;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #978bff;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    transform: rotate(-15deg) translateX(-15px) translateY(-20px);
+    
+    background-color: #938bff56;
+}
+
+.back-link {
+    margin-left: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #978bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#fieldCanvas {
+    width: 500;
+    height: 500;
+    background-color: #8b8dff;
+    border-radius: 10px;
+}
+
+.mrbeast {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#answer {
+    font-weight: bold;
+    text-align: right;
+    position: absolute;
+    right: 225px;
+    bottom: 245px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+button {
+    font-family: "SB Sans";
+    color: #191837;
+    width: 220px;
+    height: 50px;
+    font-size: large;
+    font-weight: bold;
+    border: 0px solid #978bff;
+    border-radius: 10px;
+    background-color: #8b8dff;
+    margin: 20px;
+}
+
+button:hover {
+    border: 2px solid white;
+}
+
+button:active {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.274);
+}
+
+.interactive {
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.wrapper {
+    width: 100%;
+    margin-top: 0vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}

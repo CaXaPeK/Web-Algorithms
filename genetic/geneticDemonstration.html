@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <title>Генетический алгоритм</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>🧬Генетический алгоритм</h1>
+        <div class="back">
+            <p></p>
+            <a class="back-link" href="../index.html" target="_self"><b>← На главную</b></a>
+            <p></p>
+        </div>
+
+        <div class="wrapper" id="wrapper">
+            <div class="control-buttons">
+                <button id="modeSelector">🧽 Удалить точки</button>
+                <button id="clearCanvas">✖️ Очистить поле</button>
+                <button id="executeAlgorithm">▶️ Запустить алгоритм</button>
+            </div>
+
+            <div class="canvas-div">
+                <canvas id="fieldCanvas"></canvas>
+            </div>
+            
+            <div class="settings">
+                <div class="speed-setting">
+                    <label>⏱ Скорость анимации:</label>
+                    <input id="animationSpeedSlider" type="range" min="10" max="1000" step="10" value="30">
+                </div>
+                
+                <div class="population-setting">
+                    <label>👪 Размер популяции:</label>
+                    <input id="populationSizeSlider" type="range" min="3" max="100" step="1" value="10">
+                    <output id="populationSizeText">10</output>
+                </div>
+                
+                <div class="mutation-setting">
+                    <label>🧬 Шанс мутации:</label>
+                    <input id="mutationChanceSlider" type="range" min="0" max="100" step="1" value="5">
+                    <output id="mutationChanceText">5</output>
+                </div>
+                
+                <div class="generations-setting">
+                    <label>🔢 Количество поколений:</label>
+                    <input id="generationAmountSlider" type="range" min="5" max="100" step="1" value="30">
+                    <output id="generationAmountText">30</output>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="scripts/drawing.js" defer></script>
+    <script src="scripts/changeParameters.js" defer></script>
+    <script src="scripts/executeAlgorithm.js" defer></script>
+</html>

@@ -1,20 +1,97 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="rus">
     <head>
         <meta charset="UTF-8">
         <title>Кластеризация</title>
         <link rel="stylesheet" href="cluster.css">
     </head>
 
-    <body>
-        <h1>Кластеризация</h1>
-        <div class="wrapper" id="wrapper">
-            <div class="fieldCanvasClass">
+    <body>  
+        <h1>☀️Кластеризация</h1>
+        <div class="back">
+            <p></p>
+            <a class="back-link" href="../index.html" target="_self"><b>← На главную</b></a>
+            <p></p>
+        </div>
+        
+        <div class="wrapper">
+
+            <div class="control-buttons">
+                <button id="modeSelector">🧽 Ластик</button>
+                <button id="clearCanvas">✖️ Очистить поле</button>
+                <button id="algorithmStart">▶️ Запустить алгоритм</button>
+            </div>
+
+            <div class="canvas-div">
                 <canvas id="fieldCanvas"></canvas>
             </div>
+
+            <div class="settings">
+                <div class="general-settings">
+                    <b>Общие настройки</b>
+                    <div class="method-settings">
+                        🔨 Метод кластеризации:
+                        <select name="clusteringMethod" id="clusteringMethod">
+                            <option value="kmeans">k-средних</option>
+                            <option value="dbscan">DBSCAN</option>
+                            <option value="hierarchial">Иерархический</option>
+                        </select>
+                    </div>
+                    <div class="metrics-settings">
+                        📏 Метрика:
+                        <select name="metricsSelector" id="metricsSelector" onchange="unhideInfo();">
+                            <option value="euclidian">Евклидова</option>
+                            <option value="manhattan">Манхэттенская</option>
+                            <option value="chebyshev">Чебышёва</option>
+                            <option value="all">Всё везде и сразу</option>
+                        </select>
+                        <button class="info" id="info" hidden="hidden">ℹ️ Что это значит?</button>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="kmeans-and-hierarchial-settings">
+                    <b>Настройки k-средних и Иерархического</b>
+                    <div>
+                        🌑 Кластеров:
+                        <input id="clusterCount" type="number" name="clusters" size="2" min="1" max="30" value="3">
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="dbscan-settings">
+                    <b>Настройки DBSCAN</b>
+                    <div>
+                        ⭕ Радиус поиска точек:
+                        <input type="range" id="epsilon" name="epsilon" min="0" max="500" value="100">
+                        <output id="epsilonValue">100</output>
+                    </div>
+                    <div>
+                        ー Мин. кол-во точек кластера:
+                        <input type="range" id="minCircles" name="minCircles" min="0" max="100" value="10">
+                        <output id="minCirclesValue">10</output>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p>Автор: Александр Баздырев</p>
+
+        <div class="info-box-container" id="infoBoxContainer" hidden="hidden">
+            <div class="info-box" id="infoBox">
+                <picture class="circle-guide">
+                    <source srcset="metricsInfo.png" media="(orientation: portrait)">
+                    <img src="metricsInfo.png" width="600" height="600">
+                </picture>
+                <button id="close">❌ Закрыть</button>
+            </div>
+        </div>
+        
     </body>
 
-    <script src="cluster.js" defer></script>
+    <script src="scripts/drawingSystem.js"></script>
+    <script src="scripts/general.js"></script>
+    <script src="scripts/kmeans.js"></script>
+    <script src="scripts/dbscan.js"></script>
+    <script src="scripts/hierarchial.js"></script>
 </html>
