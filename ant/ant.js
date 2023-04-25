@@ -1,10 +1,11 @@
-
 document.querySelector('#executeAlgorithm').onclick = function() {
     let map = [[]];
     map = initializeMap();
-    let iterations = 100;
+    let iterations = 1000;
     let bestPath = [];
     let bestPathLength = 99999999;
+    let bestSmollPath = [];
+    let bestSmollPathLength = 99999999;
     
     let canvas = document.querySelector('canvas'),
     context = canvas.getContext('2d');
@@ -16,12 +17,18 @@ document.querySelector('#executeAlgorithm').onclick = function() {
             bestPath = currPath[0];
             bestPathLength = currPath[1];
         }
+        if (currPath[3] < bestSmollPathLength) {
+            bestSmollPath = currPath[2];
+            bestSmollPathLength = currPath[3];
+        }
     }
 
     context.canvas.width = context.canvas.width;
     context.putImageData(canvasData, 0, 0);
     for (let i = 1; i < bestPath.length; i++) {
-        drawLine(circlesX[bestPath[i-1]], circlesY[bestPath[i-1]], circlesX[bestPath[i]], circlesY[bestPath[i]]);
+        drawLine(circlesX[bestPath[i-1]], circlesY[bestPath[i-1]], circlesX[bestPath[i]], circlesY[bestPath[i]], "cyan");
+        console.log(bestSmollPath, bestSmollPathLength);
+        drawLine(circlesX[bestSmollPath[i-1]], circlesY[bestSmollPath[i-1]], circlesX[bestSmollPath[i]], circlesY[bestSmollPath[i]], "red");
     }
 
     document.getElementById("executeAlgorithm").hidden = "hidden";
@@ -40,6 +47,8 @@ function initializeMap() {
     }  
     return map;
 }
+
+
 
 
 

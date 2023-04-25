@@ -1,11 +1,16 @@
 function antAlgorithm(map) {
-    
+    let antPaths = [];
+    let antLengths = [];
+    let minimumLength = 999999999;
+    let smollBestPath = [];
+
     let vertCount = map.length;
     let pheromones = new Array(vertCount);
     let visited = new Array(vertCount);
 
     for (let i = 0; i < vertCount; i++) {
         visited[i] = 0;
+
         pheromones[i] = new Array(vertCount);
         for (let j = 0; j < vertCount; j++) {
             if (i === j) {
@@ -32,11 +37,18 @@ function antAlgorithm(map) {
         let result = antGo(path, pathLength);
         pathLength = result[1];
         path = result[0];
+        antPaths.push(path);
+        antLengths.push(pathLength);
         updatePheromones(path, pathLength);
     }
 
+    smollAntBestPath();
+
     findBestPath();
-    return [currentBestPath, currentBestPathLength]
+    return [currentBestPath, currentBestPathLength, smollBestPath, minimumLength];
+
+
+
 
 
     function antGo(path, pathLength){
@@ -53,6 +65,8 @@ function antAlgorithm(map) {
 
         return [path, pathLength];
     }  
+
+
 
     function decideNextVertex(vertex) {
         let sumProb = 0;
@@ -81,6 +95,9 @@ function antAlgorithm(map) {
         }
         return adjNum[adjNum.length - 1];
     }
+
+
+
     
     function calculateProbabilities(sumProb, adj) {
         let probs0To1 = new Array(adj.length);
@@ -94,8 +111,6 @@ function antAlgorithm(map) {
             adj[i] = probs0To1[i];
         }
     }
-
-
 
     function updatePheromones(path, pathLength) {
          fadePheromones();
@@ -136,7 +151,6 @@ function antAlgorithm(map) {
             }
 
         }
-        
 
         currentBestPath.push(0);
 
@@ -146,6 +160,16 @@ function antAlgorithm(map) {
             currentBestPathLength += map[currentBestPath[i]][currentBestPath[i - 1]];
         }
 
+    }
+
+
+    function smollAntBestPath() {
+        for(let i = 0; i < antPaths.length; ++i) {
+            if (antLengths[i] < minimumLength) {
+                minimumLength = antLengths[i];
+                smollBestPath = antPaths[i];
+            }
+        }
     }
 
     function applyPheromones(path, pathLength) {

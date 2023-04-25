@@ -26,14 +26,6 @@ class Circle {
     }
 }
 
-document.querySelector('#clearCanvas').onclick = function() {
-    let clearing = canvas.getContext("2d");
-    clearing.clearRect(0, 0, canvas.width, canvas.height);
-    circlesX = [];
-    circlesY = [];
-    document.getElementById("executeAlgorithm").hidden = "";
-}
-
 let canvas = document.getElementById("fieldCanvas");
 canvas.width = 500;
 canvas.height = 500;
@@ -81,6 +73,7 @@ function drawLine(firstX, firstY, secondX, secondY, color) {
     line.lineTo(secondX, secondY);
     line.stroke();
 }
+
 function drawMap(gnome, colorInInteger) {
     let redValue;
     let greenValue;
